@@ -1,4 +1,4 @@
-# Smart-Vaccum-Cleaner
+# Smart-Vacuum-Cleaner
 There will be 6 nodes, 4 main and 2 for future development, the 4 main nodes are :
 
 1- UltraSonic node > collects distace data from sensor and publishes it to the control node through the sensor topic
