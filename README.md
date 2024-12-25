@@ -1,22 +1,93 @@
-# Smart-Vacuum-Cleaner
-There will be 6 nodes, 4 main and 2 for future development, the 4 main nodes are :
+# Autonomous Vacuum Cleaner Project
 
-1- UltraSonic node > collects distace data from sensor and publishes it to the control node through the sensor topic
+This project demonstrates the use of ROS to build and control an autonomous vacuum cleaner capable of avoiding obstacles dynamically. Below is an overview of the ROS nodes and their functionality:
 
-2- IR node > collects data from senstor and publishes it to the feedback topic
+## Features
 
-3- Control node > subscribe from the UltraSonic node and makes all the prcessing needed "the main brain", and then publishes to the motor node through the command topic
+1. ** Obstacle Detection using Ultrasonic Sensor **
 
-4- Motor node > subscribe from the control node through the command topic and translate this message into a physical action
+Node: ultrasonic_sensor_node
 
-5- Navigation > for path planning , waypointing and mapping
+Functionality:
 
-6- logging > subscribe to all importangt topics for debugging -RViz-
+Continuously reads the distance between the sensor and the nearest obstacle or wall.
 
-There will be 3 main topics:
+Publishes the readings to a dedicated ROS topic (/ultrasonic_distance).
 
-1- Sensor Topic : from Ultrasonic node to Control node, carries the distance message.
 
-2- Command Topic : from Control node to Motor node, carries the linear and angular velocities.
+Purpose:
 
-3- Feedback Topic : from IR node to Control node, carries float (velocity)
+Enables the control system to monitor the environment in real-time.
+
+
+
+
+2. Control Node for Decision Making
+
+Node: control_node
+
+Functionality:
+
+Subscribes to the ultrasonic sensor topic (/ultrasonic_distance) to receive distance readings.
+
+Monitors the distance values and determines if the robot is approaching an obstacle.
+
+Sends a signal to the motor driver via a topic (/motor_control) to:
+
+Slow down when an obstacle is detected.
+
+Stop if the obstacle is too close.
+
+
+
+Purpose:
+
+Manages the robot's movement based on real-time data from the sensors.
+
+
+
+
+3. Motor Driver Communication
+
+Node: motor_driver_node
+
+Functionality:
+
+Subscribes to the control topic (/motor_control) to receive speed and direction commands.
+
+Adjusts the motor's speed and direction accordingly.
+
+
+Purpose:
+
+Executes movement commands, ensuring smooth operation of the vacuum cleaner.
+
+
+
+
+
+Workflow
+
+1. The ultrasonic sensor continuously publishes distance readings.
+
+
+2. The control node monitors these readings and evaluates the proximity of obstacles.
+
+
+3. Based on the obstacle's distance:
+
+Commands to slow down or stop are sent to the motor driver.
+
+
+
+4. The motor driver node adjusts the robot's movement accordingly.
+
+
+
+Topics Used
+
+Future Enhancements
+
+Implementing mapping and localization for improved navigation.
+
+Adding additional sensors for enhanced obstacle detection.
