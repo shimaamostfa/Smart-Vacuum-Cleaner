@@ -27,14 +27,14 @@ def handle_control_mode(req):
             # autonomous_node control
             os.system(f"rosnode kill {keyboard_node}")  # stop keyboard control
             os.system(f"rosrun your_package_name autonomous_control.py &")  # ????run autonomous control
-            motor_stop_pub.publish([False])
+            motor_stop_pub.publish(False)
             return ControlModeResponse(True, "Autonomous mode activated.")
         
         elif mode == 0:
             #  stop all nodes 
             os.system(f"rosnode kill {keyboard_node}")  #  stop keyboard control
             os.system(f"rosnode kill {autonomous_node}")  #  stop autonomous control
-            motor_stop_pub.publish([False])
+            motor_stop_pub.publish(False)
             return ControlModeResponse(True, "All nodes stopped.")
         
         else:
